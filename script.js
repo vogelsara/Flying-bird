@@ -1,17 +1,55 @@
 function initSite() {
     var bird = document.getElementById("birdImage");
-    var position = 0;
-    var id = setInterval(frame, 20);
+    var positionX = 0;
+    var positionY = 250;
     var body = document.getElementById("body");
     var birdWidth = bird.clientWidth;
-    var bodyWidth = body.clientWidth;
+    
+    setInterval(stepAnimation, 2);
 
-    function frame() {
-        if (position == (bodyWidth - birdWidth)){
-            clearInterval(id);
+    function stepAnimation() {
+
+        var bodyWidth = body.clientWidth;
+        var bodyHeight = body.clientHeight;
+
+        var direction = Math.floor(Math.random() * 3);
+
+        if (direction == 0) {
+
+            // Go up
+
+            if (positionY <= 0 - bodyHeight){
+                positionY = bodyHeight;
+            } else {
+                positionY--;
+            }
+
+            bird.style.top = positionY + 'px';
+
+        } else if (direction == 1) {
+
+            // Go right
+
+            if (positionX >= bodyWidth){
+                positionX = 0 - birdWidth;
+            } else {
+                positionX++;
+            }
+
+            bird.style.left = positionX + 'px';
+
+            
         } else {
-            position++;
-            bird.style.left = position + 'px';
+
+            // Go down
+
+            if (positionY >= bodyHeight){
+                positionY = 0 - bodyHeight;
+            } else {
+                positionY++;
+            }
+
+            bird.style.top = positionY + 'px';
         }
     }
 }
